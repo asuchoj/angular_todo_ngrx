@@ -1,0 +1,12 @@
+.course{
+    border: 1px solid black;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    &-btns{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

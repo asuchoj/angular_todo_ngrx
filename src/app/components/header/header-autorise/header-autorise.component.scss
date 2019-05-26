@@ -1,0 +1,13 @@
+.autorise{
+    display: flex;
+    align-items: center;
+
+    .btn{
+        margin-left: 5px;
+
+        &:hover{
+            cursor: pointer;
+            opacity: 0.5;
+        }        
+    }
+}

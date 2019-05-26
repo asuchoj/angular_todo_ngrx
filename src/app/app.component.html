@@ -1,3 +1,21 @@
-<div>Старт</div>
+<div class="app-box">
+    <div class="wrap">
+        <div class="header">
+            <app-header-logo></app-header-logo>
 
-<router-outlet></router-outlet>
+            <app-header-autorise></app-header-autorise> 
+        </div>
+
+        <div class="body">
+            <app-manage></app-manage>
+
+            <div *ngFor="let task of tasks">
+                <app-course [level]="task"></app-course>
+            </div>
+
+            <div class="body-more-btn">Load more</div>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</div>
