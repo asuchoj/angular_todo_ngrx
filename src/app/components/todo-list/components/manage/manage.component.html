@@ -1,0 +1,23 @@
+<div class="manage">
+  <form [formGroup]="form" class="manage-inputs" (ngSubmit)="onSubmit()">
+
+    <input formControlName="name" type="text" placeholder="Name">
+
+    <input formControlName="date" type="date">
+
+    <button type="submit">Add task</button>
+  </form>
+    
+  <div class="manage-btns">
+    <button type="button">All tasks</button>
+
+    <button type="button">Completed tasks</button>
+
+    <button type="button">Uncompleted tasks</button>
+
+    <button type="button">Overdue tasks</button>
+
+    <button type="button">Upcoming deadline tasks</button>
+  </div>
+
+</div>

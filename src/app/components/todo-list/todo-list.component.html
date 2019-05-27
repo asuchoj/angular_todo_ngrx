@@ -1,0 +1,21 @@
+<div class="todo-list">
+    <div class="wrap">
+        <div class="header">
+            <app-header-logo></app-header-logo>
+
+            <app-header-autorise></app-header-autorise> 
+        </div>
+
+        <div class="body">
+            <app-manage [tasks]="tasks"></app-manage>
+
+            <div *ngFor="let task of tasks">
+                <app-course [task]="task"></app-course>
+            </div>
+
+            <div class="body-more-btn">Load more</div>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</div>
