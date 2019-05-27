@@ -9,9 +9,9 @@
         <div class="body">
             <app-manage></app-manage>
 
-            <div *ngFor="let task of tasks">
+            <ng-container *ngFor="let task of tasks">
                 <app-task [task]="task"></app-task>
-            </div>
+            </ng-container>
 
             <div class="body-more-btn">Load more</div>
         </div>
