@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
-import { Task } from '../../interfaces/interface'
-import { TodoService } from '../../services/todo.service';
+import { Task, TodoPage } from '../../interfaces/interface'
+import { Store } from '@ngrx/store';
+import { AddTask } from '../../redux/todo-list.actions';
 
 @Component({
   selector: 'app-manage',
@@ -11,20 +12,28 @@ import { TodoService } from '../../services/todo.service';
 })
 export class ManageComponent implements OnInit {
 
-  @Input() tasks: Task[];
+  editor: boolean = false;
 
   form: any;
 
-  constructor(private fb: FormBuilder, private todoService: TodoService) {}
+  constructor(private fb: FormBuilder, private store: Store<TodoPage>) {
+    this.form = this.fb.group({name: '', date: '', id: '', isComplete: ''});
+  }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      name: [''],
-      date: ['']
+    this.store.select('todoPage').subscribe(item => {
+      if(item.editTask) {
+        this.form.patchValue(item.editTask);
+        this.editor = true;
+      }
     })
   }
 
   onSubmit(){
-    this.todoService.setTask(this.form.value.name, this.form.value.date, false);
+    if(this.editor) this.store.dispatch(new AddTask(this.form.value, true))
+    else this.store.dispatch(new AddTask(this.form.value));
+
+    this.editor = false;
+    this.form.reset();
   }
 }

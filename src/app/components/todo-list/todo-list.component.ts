@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TodoService } from './services/todo.service'
+import { Store } from '@ngrx/store';
+import { TodoPage } from './interfaces/interface';
 
 @Component({
   selector: 'app-todo-list',
@@ -9,7 +11,7 @@ import { TodoService } from './services/todo.service'
 export class TodoListComponent{
   tasks: any[];
 
-  constructor(private todoService: TodoService) {
-    this.todoService.getTasks().subscribe(tasks => this.tasks = tasks);
+  constructor(private todoService: TodoService, private store: Store<TodoPage>) {
+    this.store.select('todoPage').subscribe(todoPage => this.tasks = todoPage.tasks)
   }
 }

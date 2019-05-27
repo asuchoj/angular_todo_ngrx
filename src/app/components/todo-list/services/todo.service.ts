@@ -12,11 +12,7 @@ export class TodoService {
 
   id: number = 4;
 
-  todo: Task[] = [
-    {id: 1, name: 'Задание 1', date: new Date('2019-08-21'), isComplete: false},
-    {id: 2, name: 'Задание 2', date: new Date('2019-05-01'), isComplete: false},
-    {id: 3, name: 'Задание 3', date: new Date('2019-05-28'), isComplete: true}
-  ];
+  todo: Task[] = [];
 
 
 constructor() {}

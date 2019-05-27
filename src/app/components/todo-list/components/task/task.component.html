@@ -2,7 +2,7 @@
   <div>
     <h3>{{task.name}}</h3>
 
-    <p>{{task.date | date}}</p>
+    <p>Period of execution: {{task.date | date}}</p>
 
     <p [ngClass]="{'green': task.isComplete, 'red': !task.isComplete}">{{task.isComplete ? 'completed' : 'uncompleted'}}</p>
   </div>
@@ -11,6 +11,8 @@
     <button (click)="editTask()">Edit</button>
     
     <button (click)="deleteTask()">Delete</button>
+
+    <button (click)="completedTask()">{{task.isComplete ? 'Uncompleted' : 'Completed'}}</button>
   </div>
 </div>
 
