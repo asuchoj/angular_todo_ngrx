@@ -12,6 +12,9 @@ export class TodoListComponent{
   tasks: any[];
 
   constructor(private todoService: TodoService, private store: Store<TodoPage>) {
-    this.store.select('todoPage').subscribe(todoPage => this.tasks = todoPage.tasks);
+    this.store.select('todoPage').subscribe(todoPage => {
+      console.log(todoPage);
+      this.tasks = todoPage.tasks;
+    });
   }
 }

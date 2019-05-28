@@ -1,34 +1,59 @@
 
-import { TodoActionTypes, AddTask, RemoveTask, EditTask, CompletedTask } from './todo-list.actions';
+import { TodoActionTypes, TodoActionInterface } from './todo-list.actions';
 import { initialTodoState } from './todo-list.state'
+import { Task } from '../interfaces/interface';
+import * as moment from 'moment';
 
-export function todoListReducer(state = initialTodoState, action: AddTask | RemoveTask | EditTask | CompletedTask) {
+export function todoListReducer(state = initialTodoState, action: TodoActionInterface) {
     switch (action.type) {
-        case (TodoActionTypes.Add):
-            return {...state, tasks: [...state.tasks, action.task], editTask: null}
-            
-        case (TodoActionTypes.Remove):
-            state.tasks.splice(state.tasks.findIndex(i => i.id === action.idTask), 1);
-            
-            return state
-
+        case (TodoActionTypes.Add): {
+            state._tasks = [...state._tasks, action.task];
+            return { ...state, tasks: [...state._tasks], editTask: null }
+        }
+        case (TodoActionTypes.Remove): {
+            state._tasks.splice(state._tasks.findIndex(i => i.id === action.taskId), 1);
+            state.tasks = [...state._tasks];
+            return {...state}
+        }
         case (TodoActionTypes.Edit): {
-            if(state.editTask) {
+            if (state.editTask) {
                 alert("Заверши редактирование");
 
                 return state
             } else {
-                state.tasks.splice(state.tasks.findIndex(i => i.id === action.body.id), 1);
-
-                return {...state, editTask: action.body}
+                state._tasks.splice(state._tasks.findIndex(i => i.id === action.body.id), 1);
+                state.tasks = [...state._tasks];
+                return { ...state, editTask: action.body }
             }
         }
-        case (TodoActionTypes.Completed):
-            let task = state.tasks.find(i => i.id === action.taskId);
+        case (TodoActionTypes.Completed): {
+            let task = state._tasks.find(i => i.id === action.taskId);
             task.isComplete = !task.isComplete;
+            state.tasks = [...state._tasks];
 
-            return state
-
+            return {...state}
+        }
+        case TodoActionTypes.FilterCompleted: {
+            let completedTasks: Task[] = state._tasks.filter(item => item.isComplete)
+            return {...state, tasks: completedTasks}
+        }
+        case TodoActionTypes.FilterUncompleted: {
+            let completedTasks: Task[] = state._tasks.filter(item => !item.isComplete)
+            return {...state, tasks: completedTasks}
+        }
+        case TodoActionTypes.FilterOverdue: {
+            const dateNow = moment(new Date).format('YYYY-MM-DD');
+            let completedTasks: Task[] = state._tasks.filter(item => item.date < dateNow);
+            return {...state, tasks: completedTasks}
+        }
+        case TodoActionTypes.FilterUpcoming: {
+            const dateNow = moment(new Date).format('YYYY-MM-DD');
+            let completedTasks: Task[] = state._tasks.filter(item => item.date >= dateNow);
+            return {...state, tasks: completedTasks}
+        }
+        case TodoActionTypes.ShowAll: {
+            return {...state, tasks: [...state._tasks]}
+        }
         default:
             return state
     }

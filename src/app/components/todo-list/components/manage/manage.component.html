@@ -9,15 +9,14 @@
   </form>
     
   <div class="manage-btns">
-    <button type="button">All tasks</button>
+    <button type="button" (click)="showAllTasks()"> All tasks</button>
 
-    <button type="button" (click)="filterTask()">Completed tasks</button>
+    <button type="button" (click)="showAllTasks(todoAction.FilterCompleted)">Completed tasks</button>
 
-    <button type="button">Uncompleted tasks</button>
+    <button type="button" (click)="showAllTasks(todoAction.FilterUncompleted)">Uncompleted tasks</button>
 
-    <button type="button">Overdue tasks</button>
+    <button type="button" (click)="showAllTasks(todoAction.FilterOverdue)">Overdue tasks</button>
 
-    <button type="button">Upcoming deadline tasks</button>
+    <button type="button" (click)="showAllTasks(todoAction.FilterUpcoming)">Upcoming deadline tasks</button>
   </div>
-
 </div>

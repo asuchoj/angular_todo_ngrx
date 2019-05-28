@@ -3,8 +3,15 @@ import { FormBuilder } from '@angular/forms';
 
 import { TodoPage } from '../../interfaces/interface'
 import { Store } from '@ngrx/store';
-import { AddTask } from '../../redux/todo-list.actions';
-import { FilteredCompletedTasks, FilterItem } from '../../redux/filter-list.action';
+import {
+  AddTask,
+  TodoActionTypes,
+  ShowCompletedTasks,
+  ShowUncompletedTasks,
+  ShowOverdueTasks,
+  ShowUpcomingTasks,
+  ShowAllTasks
+} from '../../redux/todo-list.actions';
 
 @Component({
   selector: 'app-manage',
@@ -16,6 +23,8 @@ export class ManageComponent implements OnInit {
   editor: boolean = false;
 
   form: any;
+
+  todoAction = TodoActionTypes;
 
   constructor(private fb: FormBuilder, private store: Store<TodoPage>) {
     this.form = this.fb.group({ name: '', date: '', id: '', isComplete: '' });
@@ -38,10 +47,18 @@ export class ManageComponent implements OnInit {
     this.form.reset();
   }
 
-  filterTask(actions) {
-    switch (actions) {
-      case FilterItem.Completed:
-        return this.store.dispatch(new FilteredCompletedTasks());
-    }
+  showAllTasks(action) {
+    switch (action){
+      case this.todoAction.FilterCompleted: 
+        return this.store.dispatch(new ShowCompletedTasks);
+      case this.todoAction.FilterOverdue: 
+        return this.store.dispatch(new ShowOverdueTasks);
+      case this.todoAction.FilterUncompleted:
+        return this.store.dispatch(new ShowUncompletedTasks);
+      case this.todoAction.FilterUpcoming:
+        return this.store.dispatch(new ShowUpcomingTasks);
+      default:
+        return this.store.dispatch(new ShowAllTasks);
+    } 
   }
 }
