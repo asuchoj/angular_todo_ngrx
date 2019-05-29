@@ -8,5 +8,4 @@ const routes: Routes = [{path: '', component: TodoListComponent}];
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
 export class AppRoutingModule {}

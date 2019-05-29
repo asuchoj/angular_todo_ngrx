@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TodoService } from './services/todo.service'
 import { Store } from '@ngrx/store';
-import { TodoPage } from './interfaces/interface';
+import { TodoPage, Task } from './interfaces/interface';
 
 @Component({
   selector: 'app-todo-list',
@@ -9,12 +9,9 @@ import { TodoPage } from './interfaces/interface';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent{
-  tasks: any[];
+  tasks: Task[];
 
-  constructor(private todoService: TodoService, private store: Store<TodoPage>) {
-    this.store.select('todoPage').subscribe(todoPage => {
-      console.log(todoPage);
-      this.tasks = todoPage.tasks;
-    });
+  constructor(private store: Store<TodoPage>) {
+    this.store.select('todoPage').subscribe(todoPage => this.tasks = todoPage.tasks);
   }
 }

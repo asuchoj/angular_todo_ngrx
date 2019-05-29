@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { TodoPage } from '../../interfaces/interface'
+import { TodoPage, Task } from '../../interfaces/interface'
 import { Store } from '@ngrx/store';
 import {
   AddTask,
@@ -22,7 +22,7 @@ export class ManageComponent implements OnInit {
 
   editor: boolean = false;
 
-  form: any;
+  form: FormGroup;
 
   todoAction = TodoActionTypes;
 
@@ -39,15 +39,17 @@ export class ManageComponent implements OnInit {
     })
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.editor) this.store.dispatch(new AddTask(this.form.value, true))
-    else this.store.dispatch(new AddTask(this.form.value));
-
+    else {
+      this.form.patchValue({id: this.getNewId()})
+      this.store.dispatch(new AddTask(this.form.value));
+    }
     this.editor = false;
     this.form.reset();
   }
 
-  showAllTasks(action) {
+  showAllTasks(action: string): void {
     switch (action){
       case this.todoAction.FilterCompleted: 
         return this.store.dispatch(new ShowCompletedTasks);
@@ -60,5 +62,9 @@ export class ManageComponent implements OnInit {
       default:
         return this.store.dispatch(new ShowAllTasks);
     } 
+  }
+
+  getNewId(): string {
+    return Math.random().toString(36).substr(2, 9);
   }
 }

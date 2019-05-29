@@ -22,7 +22,7 @@ export class AddTask implements Action {
 export class RemoveTask implements Action {
     readonly type = TodoActionTypes.Remove;
 
-    constructor(public taskId: number) { }
+    constructor(public taskId: string) { }
 }
 
 export class EditTask implements Action {
@@ -34,7 +34,7 @@ export class EditTask implements Action {
 export class CompletedTask implements Action {
     readonly type = TodoActionTypes.Completed;
 
-    constructor(public taskId: number) { }
+    constructor(public taskId: string) { }
 }
 
 export class ShowCompletedTasks implements Action {
