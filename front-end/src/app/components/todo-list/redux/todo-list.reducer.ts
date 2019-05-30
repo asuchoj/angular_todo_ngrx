@@ -54,6 +54,11 @@ export function todoListReducer(state = initialTodoState, action: TodoActionInte
         case TodoActionTypes.ShowAll: {
             return {...state, tasks: [...state._tasks]}
         }
+        case TodoActionTypes.GET_TASKS: {
+            state.tasks = [...action.tasks];
+            state._tasks = [...action.tasks];
+            return state;            
+        }
         default:
             return state
     }

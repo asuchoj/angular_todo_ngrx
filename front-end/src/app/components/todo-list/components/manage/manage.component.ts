@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { TodoPage, Task } from '../../interfaces/interface'
+import { TodoPage } from '../../interfaces/interface'
 import { Store } from '@ngrx/store';
 import {
   AddTask,
@@ -12,6 +12,7 @@ import {
   ShowUpcomingTasks,
   ShowAllTasks
 } from '../../redux/todo-list.actions';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-manage',
@@ -26,8 +27,12 @@ export class ManageComponent implements OnInit {
 
   todoAction = TodoActionTypes;
 
-  constructor(private fb: FormBuilder, private store: Store<TodoPage>) {
-    this.form = this.fb.group({ name: '', date: '', id: '', isComplete: '' });
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<TodoPage>,
+    private todoService: TodoService
+  ) {
+    this.form = this.fb.group({ name: '', date: '', id: '', isComplete: false });
   }
 
   ngOnInit() {
@@ -40,20 +45,16 @@ export class ManageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.editor) this.store.dispatch(new AddTask(this.form.value, true))
-    else {
-      this.form.patchValue({id: this.getNewId()})
-      this.store.dispatch(new AddTask(this.form.value));
-    }
+    this.editor ? this.todoService.editTask(this.form.value).subscribe() : this.todoService.addTask(this.form.value).subscribe();  
     this.editor = false;
     this.form.reset();
   }
 
   showAllTasks(action: string): void {
-    switch (action){
-      case this.todoAction.FilterCompleted: 
+    switch (action) {
+      case this.todoAction.FilterCompleted:
         return this.store.dispatch(new ShowCompletedTasks);
-      case this.todoAction.FilterOverdue: 
+      case this.todoAction.FilterOverdue:
         return this.store.dispatch(new ShowOverdueTasks);
       case this.todoAction.FilterUncompleted:
         return this.store.dispatch(new ShowUncompletedTasks);
@@ -61,10 +62,6 @@ export class ManageComponent implements OnInit {
         return this.store.dispatch(new ShowUpcomingTasks);
       default:
         return this.store.dispatch(new ShowAllTasks);
-    } 
-  }
-
-  getNewId(): string {
-    return Math.random().toString(36).substr(2, 9);
+    }
   }
 }

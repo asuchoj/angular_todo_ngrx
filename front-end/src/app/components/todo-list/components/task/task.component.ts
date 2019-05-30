@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { Task, TodoPage } from '../../interfaces/interface'
 import { RemoveTask, EditTask, CompletedTask } from '../../redux/todo-list.actions';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-task',
@@ -13,17 +14,17 @@ import { RemoveTask, EditTask, CompletedTask } from '../../redux/todo-list.actio
 export class TaskComponent {
   @Input() task: Task;
 
-  constructor(private store: Store<TodoPage>) { }
+  constructor(private store: Store<TodoPage>, private todoService: TodoService) { }
 
   editTask(){
     this.store.dispatch(new EditTask(this.task))
   }
 
   deleteTask(){
-    this.store.dispatch(new RemoveTask(this.task.id))
+    this.todoService.deleteTask(this.task.id).subscribe();
   }
 
   completedTask(){
-    this.store.dispatch(new CompletedTask(this.task.id))
+    this.todoService.changeStatus(this.task.id).subscribe();
   }
 }

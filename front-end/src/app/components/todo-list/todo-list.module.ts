@@ -11,12 +11,14 @@ import { TaskComponent } from './components/task/task.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ManageComponent } from './components/manage/manage.component';
 import { todoListReducer } from './redux/todo-list.reducer';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ todoPage: todoListReducer })
+    StoreModule.forRoot({ todoPage: todoListReducer }),
+    HttpClientModule
   ],
   exports: [
     TodoListComponent
