@@ -1,9 +1,8 @@
-import { TodoService } from 'src/app/components/todo-list/services/todo.service';
+import { TodoService } from 'src/app/todo-list-module/services/todo.service';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {}

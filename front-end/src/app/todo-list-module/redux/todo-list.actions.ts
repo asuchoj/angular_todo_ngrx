@@ -64,4 +64,13 @@ export class GetTasks implements Action {
     constructor(public tasks: Task[]){}
 }
 
-export type TodoActionInterface = AddTask | RemoveTask | EditTask | CompletedTask | ShowCompletedTasks | ShowUncompletedTasks | ShowOverdueTasks | ShowUpcomingTasks | ShowAllTasks | GetTasks;
+export type TodoActionInterface = AddTask |
+                                  RemoveTask |
+                                  EditTask |
+                                  CompletedTask |
+                                  ShowCompletedTasks |
+                                  ShowUncompletedTasks |
+                                  ShowOverdueTasks |
+                                  ShowUpcomingTasks |
+                                  ShowAllTasks |
+                                  GetTasks;

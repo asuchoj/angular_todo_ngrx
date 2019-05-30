@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { TodoListModule } from './components/todo-list/todo-list.module';
+import { TodoListModule } from './todo-list-module/todo-list.module';
 
 @NgModule({
    declarations: [
