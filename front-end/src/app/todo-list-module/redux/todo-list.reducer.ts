@@ -1,8 +1,6 @@
-
 import { TodoActionTypes, TodoActionInterface } from './todo-list.actions';
 import { initialTodoState } from './todo-list.state'
-import { Task } from '../interfaces/interface';
-import * as moment from 'moment';
+import { formatDate } from '../utility/utility';
 
 export function todoListReducer(state = initialTodoState, action: TodoActionInterface) {
     switch (action.type) {
@@ -12,8 +10,7 @@ export function todoListReducer(state = initialTodoState, action: TodoActionInte
         }
         case (TodoActionTypes.Remove): {
             state._tasks.splice(state._tasks.findIndex(i => i.id === action.taskId), 1);
-            state.tasks = [...state._tasks];
-            return {...state}
+            return {...state, tasks: [...state._tasks]}
         }
         case (TodoActionTypes.Edit): {
             if (state.editTask) {
@@ -22,42 +19,34 @@ export function todoListReducer(state = initialTodoState, action: TodoActionInte
                 return state
             } else {
                 state._tasks.splice(state._tasks.findIndex(i => i.id === action.body.id), 1);
-                state.tasks = [...state._tasks];
-                return { ...state, editTask: action.body }
+                return { ...state, editTask: action.body, tasks: [...state._tasks]}
             }
         }
         case (TodoActionTypes.Completed): {
-            let task = state._tasks.find(i => i.id === action.taskId);
+            const task = state._tasks.find(i => i.id === action.taskId);
             task.isComplete = !task.isComplete;
-            state.tasks = [...state._tasks];
 
-            return {...state}
+            return {...state, tasks: [...state._tasks]}
         }
         case TodoActionTypes.FilterCompleted: {
-            let completedTasks: Task[] = state._tasks.filter(item => item.isComplete)
-            return {...state, tasks: completedTasks}
+            return {...state, tasks: state._tasks.filter(item => item.isComplete)}
         }
         case TodoActionTypes.FilterUncompleted: {
-            let completedTasks: Task[] = state._tasks.filter(item => !item.isComplete)
-            return {...state, tasks: completedTasks}
+            return {...state, tasks: state._tasks.filter(item => !item.isComplete)}
         }
         case TodoActionTypes.FilterOverdue: {
-            const dateNow = moment(new Date).format('YYYY-MM-DD');
-            let completedTasks: Task[] = state._tasks.filter(item => item.date < dateNow);
-            return {...state, tasks: completedTasks}
+            const date = formatDate();         
+            return {...state, tasks: state._tasks.filter(item => item.date < date)}
         }
         case TodoActionTypes.FilterUpcoming: {
-            const dateNow = moment(new Date).format('YYYY-MM-DD');
-            let completedTasks: Task[] = state._tasks.filter(item => item.date >= dateNow);
-            return {...state, tasks: completedTasks}
+            const date = formatDate();      
+            return {...state, tasks: state._tasks.filter(item => item.date >= date)}
         }
         case TodoActionTypes.ShowAll: {
             return {...state, tasks: [...state._tasks]}
         }
         case TodoActionTypes.GET_TASKS: {
-            state.tasks = [...action.tasks];
-            state._tasks = [...action.tasks];
-            return state;            
+            return {...state, tasks: [...action.tasks], _tasks: [...action.tasks]};            
         }
         default:
             return state

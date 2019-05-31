@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TodoService } from './services/todo.service'
 import { Store } from '@ngrx/store';
 import { TodoPage, Task } from './interfaces/interface';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-list',

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TodoPage } from '../../interfaces/interface'
 import { Store } from '@ngrx/store';
 import {
-  AddTask,
   TodoActionTypes,
   ShowCompletedTasks,
   ShowUncompletedTasks,
@@ -27,11 +26,7 @@ export class ManageComponent implements OnInit {
 
   todoAction = TodoActionTypes;
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<TodoPage>,
-    private todoService: TodoService
-  ) {
+  constructor(private fb: FormBuilder, private store: Store<TodoPage>, private todoService: TodoService) {
     this.form = this.fb.group({ name: '', date: '', id: '', isComplete: false });
   }
 
@@ -49,19 +44,24 @@ export class ManageComponent implements OnInit {
     this.editor = false;
     this.form.reset();
   }
+  
+  applyCompletedFilter(): void {
+    this.store.dispatch(new ShowCompletedTasks);
+  }
 
-  showAllTasks(action: string): void {
-    switch (action) {
-      case this.todoAction.FilterCompleted:
-        return this.store.dispatch(new ShowCompletedTasks);
-      case this.todoAction.FilterOverdue:
-        return this.store.dispatch(new ShowOverdueTasks);
-      case this.todoAction.FilterUncompleted:
-        return this.store.dispatch(new ShowUncompletedTasks);
-      case this.todoAction.FilterUpcoming:
-        return this.store.dispatch(new ShowUpcomingTasks);
-      default:
-        return this.store.dispatch(new ShowAllTasks);
-    }
+  applyOverdueFilter(): void {
+    this.store.dispatch(new ShowOverdueTasks);
+  }
+
+  applyUncompletedFilter(): void {
+    this.store.dispatch(new ShowUncompletedTasks);
+  }
+
+  applyUpcomingFilter(): void {
+    this.store.dispatch(new ShowUpcomingTasks);
+  }
+
+  canceleFilter(): void {
+    this.store.dispatch(new ShowAllTasks);
   }
 }
