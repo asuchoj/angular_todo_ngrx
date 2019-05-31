@@ -1,0 +1,27 @@
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+
+  &-btn {
+    width: 20px;
+    text-align: center;
+    display: block;
+    padding: 10px;
+
+    &:hover {
+      background-color: #e8e8e8;
+    }
+    &:active {
+      background-color: #e8e8e8;
+    }
+  }
+
+  &-btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+}

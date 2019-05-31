@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ManageComponent } from './components/manage/manage.component';
 import { todoListReducer } from './redux/todo-list.reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderLogoComponent,
     TaskComponent,
     FooterComponent,
-    ManageComponent
+    ManageComponent,
+    PaginatorComponent
   ]
 })
 export class TodoListModule { }

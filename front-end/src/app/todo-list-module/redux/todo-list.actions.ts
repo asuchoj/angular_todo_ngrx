@@ -61,7 +61,7 @@ export class ShowAllTasks implements Action {
 export class GetTasks implements Action {
     readonly type = TodoActionTypes.GET_TASKS;
 
-    constructor(public tasks: Task[]){}
+    constructor(public tasks: Task[], public pages: number){}
 }
 
 export type TodoActionInterface = AddTask |

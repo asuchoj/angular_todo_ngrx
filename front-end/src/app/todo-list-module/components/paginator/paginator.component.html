@@ -1,0 +1,11 @@
+<div class="paginator">
+  <div class="paginator-btn-wrap">
+    <span *ngFor="let item of pages; let i = index" class="paginator-btn">{{i + 1}}</span>
+  </div>
+
+  <select>
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+  </select>
+</div>

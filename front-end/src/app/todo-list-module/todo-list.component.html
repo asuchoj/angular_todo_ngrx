@@ -3,15 +3,17 @@
         <div class="header">
             <app-header-logo></app-header-logo>
 
-            <app-header-autorise></app-header-autorise> 
+            <app-header-autorise></app-header-autorise>
         </div>
 
-        <div class="body">
+        <div class="body" *ngIf="tasks">
             <app-manage></app-manage>
 
-            <ng-container *ngFor="let task of tasks">
+            <ng-container *ngFor="let task of tasks.tasks">
                 <app-task [task]="task"></app-task>
             </ng-container>
+
+            <app-paginator [countPages]="tasks.pages"></app-paginator>
         </div>
     </div>
 

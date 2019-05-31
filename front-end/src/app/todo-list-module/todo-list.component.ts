@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TodoService } from './services/todo.service'
 import { Store } from '@ngrx/store';
-import { TodoPage, Task } from './interfaces/interface';
+import { TodoPage, paginationTasks } from './interfaces/interface';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -10,11 +10,14 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent {
-  tasks: Task[];
+  tasks: paginationTasks;
 
   constructor(private store: Store<TodoPage>, private todoServise: TodoService) {
-    this.todoServise.getTasks().pipe(
+    this.todoServise.getTasks(1, 5).pipe(
       switchMap(() => this.store.select('todoPage'))
-    ).subscribe(todoPage => this.tasks = todoPage.tasks);
+    ).subscribe(todoPage => {
+      this.tasks = todoPage;
+      console.log(todoPage)
+    })
   }
 }

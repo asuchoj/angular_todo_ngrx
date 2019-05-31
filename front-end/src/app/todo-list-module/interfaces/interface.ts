@@ -16,5 +16,11 @@ export interface TodoPage {
         _tasks: Task[],
         tasks: Task[],
         editTask?: Task,
+        pages: number
     }
+}
+
+export interface paginationTasks{
+    pages: number,
+    tasks: Task[]
 }
