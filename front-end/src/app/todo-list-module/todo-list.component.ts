@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators';
 
-import { TodoService } from './services/todo.service'
+import { TodoService } from './services/todo.service';
 import { TodoPage, TodoState, PaginationState } from './interfaces/interface';
 import { GetTasks } from './redux/actions/todo.actions';
 import { PAGINATION_SELECT, TODO_SELECT } from './constants/constants';
@@ -22,16 +22,16 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private store: Store<TodoPage>, private todoServise: TodoService) { }
+  constructor(private store: Store<TodoPage>, private todoService: TodoService) { }
 
   ngOnInit() {
-    let page: number = this.store.source['value'].pagination.page;
-    let count: number = this.store.source['value'].pagination.count;
+    const page: number = this.store.source['value'].pagination.page;
+    const count: number = this.store.source['value'].pagination.count;
 
-    this.todoServise.getTasks(page, count).pipe(
+    this.todoService.getTasks(page, count).pipe(
       tap(state => this.store.dispatch(new GetTasks(state.tasks, state.pages)),
       takeUntil(this.destroy$)
-    )).subscribe()
+    )).subscribe();
 
     this.store.select(PAGINATION_SELECT).pipe(takeUntil(this.destroy$)).subscribe(state => this.paginationState = state);
 

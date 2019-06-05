@@ -14,27 +14,24 @@ import { ChangePages } from '../../redux/actions/pagination.actions';
 export class PaginatorComponent implements OnChanges {
 
   @Input() countPages: number;
-  
   @Input() page: number;
-  
   @Input() count: number;
-  
   pages: Array<any>;
 
-  curentCount = new FormControl('');
+  currentCount = new FormControl('');
 
   constructor(private store: Store<TodoPage>) {}
 
   ngOnChanges(): void {
     this.pages = new Array(this.countPages);
-    this.curentCount.patchValue(this.count);
+    this.currentCount.patchValue(this.count);
   }
 
-  setPage(page: number){
-    this.store.dispatch(new ChangePages(page, this.curentCount.value))
+  setPage(page: number) {
+    this.store.dispatch(new ChangePages(page, this.currentCount.value));
   }
 
-  setCount(){
-    this.store.dispatch(new ChangePages(1, this.curentCount.value))
+  setCount() {
+    this.store.dispatch(new ChangePages(1, this.currentCount.value));
   }
 }

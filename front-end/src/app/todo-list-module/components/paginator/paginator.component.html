@@ -3,7 +3,7 @@
     <li *ngFor="let item of pages; let i = index" class="paginator-btn" [ngClass]="{'active': page === i + 1}" (click)="setPage(i + 1)">{{i + 1}}</li>
   </ul>
 
-  <select [formControl]="curentCount" (change)="setCount()">
+  <select [formControl]="currentCount" (change)="setCount()">
     <option>5</option>
     <option>10</option>
     <option>15</option>

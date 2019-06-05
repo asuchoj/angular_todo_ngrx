@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 export enum PaginationActionTypes {
-    ChangePages = 'chengePages',
-    ChengeTaskCount = 'chengeTaskCount',
+    ChangePages = 'changePages',
+    ChangeTaskCount = 'changeTaskCount',
     ResetPage = 'resetPage',
     ResetCount = 'resetCount',
 }
@@ -10,13 +10,13 @@ export enum PaginationActionTypes {
 export class ChangePages implements Action {
     readonly type = PaginationActionTypes.ChangePages;
 
-    constructor(public page: number, public count: number){}
+    constructor(public page: number, public count: number) {}
 }
 
-export class ChengeTaskCount implements Action {
-    readonly type = PaginationActionTypes.ChengeTaskCount;
+export class ChangeTaskCount implements Action {
+    readonly type = PaginationActionTypes.ChangeTaskCount;
 
-    constructor(public page: number, public count: number){}
+    constructor(public page: number, public count: number) {}
 }
 
 export class ResetPage implements Action {
@@ -27,4 +27,4 @@ export class ResetCount implements Action {
     readonly type = PaginationActionTypes.ResetCount;
 }
 
-export type PaginationActionInterface = ChangePages | ChengeTaskCount | ResetPage | ResetCount;
+export type PaginationActionInterface = ChangePages | ChangeTaskCount | ResetPage | ResetCount;

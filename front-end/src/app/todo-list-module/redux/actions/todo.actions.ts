@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Task } from '../../interfaces/interface'
+import { Task } from '../../interfaces/interface';
 
 export enum TodoActionTypes {
     Add = 'add',
@@ -11,7 +11,7 @@ export enum TodoActionTypes {
     FilterUncompleted = 'filterUncompleted',
     FilterOverdue = 'filterOverdue',
     FilterUpcoming = 'filterUpcoming',
-    ShowAll = 'showall',
+    ShowAll = 'showAll',
     GET_TASKS = 'GET_TASKS',
     FilteredTasks = 'Filtered'
 }
@@ -69,13 +69,13 @@ export class ShowAllTasks implements Action {
 export class FilteredTasks implements Action {
     readonly type = TodoActionTypes.FilteredTasks;
 
-    constructor(public filterStatus: string){}
+    constructor(public filterStatus: string) {}
 }
 
 export class GetTasks implements Action {
     readonly type = TodoActionTypes.GET_TASKS;
 
-    constructor(public tasks: Task[], public pages: number){}
+    constructor(public tasks: Task[], public pages: number) {}
 }
 
 export type TodoActionInterface = AddTask |

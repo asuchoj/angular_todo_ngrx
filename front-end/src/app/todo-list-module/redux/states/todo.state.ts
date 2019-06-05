@@ -1,6 +1,6 @@
-import { TodoState } from "../../interfaces/interface";
+import {TodoState} from "../../interfaces/interface";
 
-let start: any[] = []
+const start: any[] = [];
 
 export const initialTodoState: TodoState = {
     _tasks: [...start],
@@ -8,5 +8,5 @@ export const initialTodoState: TodoState = {
     pages: null,
     editTask: null,
     filter: null
-}
+};
 

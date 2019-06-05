@@ -2,21 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { TodoPage } from '../../interfaces/interface'
-import {
-  TodoActionTypes,
-  ShowCompletedTasks,
-  ShowUncompletedTasks,
-  ShowOverdueTasks,
-  ShowUpcomingTasks,
-  ShowAllTasks,
-  EditTask,
-  AddTask,
-  FilteredTasks
-} from '../../redux/actions/todo.actions';
-import { TODO_SELECT } from '../../constants/constants';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { TodoPage } from '../../interfaces/interface';
+import { TodoActionTypes, EditTask, AddTask, FilteredTasks} from '../../redux/actions/todo.actions';
+import { TODO_SELECT } from '../../constants/constants';
 
 @Component({
   selector: 'app-manage',
@@ -25,7 +16,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ManageComponent implements OnInit, OnDestroy {
 
-  editor: boolean = false;
+  editor = false;
 
   form: FormGroup;
 
@@ -45,16 +36,16 @@ export class ManageComponent implements OnInit, OnDestroy {
         this.form.patchValue(item.editTask);
         this.editor = true;
       }
-    })
+    });
   }
 
   onSubmit(): void {
-    this.editor ? this.store.dispatch(new EditTask(this.form.value)) : this.store.dispatch(new AddTask(this.form.value))
+    this.editor ? this.store.dispatch(new EditTask(this.form.value)) : this.store.dispatch(new AddTask(this.form.value));
     this.editor = false;
     this.form.reset();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.next(true);
   }
 
@@ -74,7 +65,7 @@ export class ManageComponent implements OnInit, OnDestroy {
     this.store.dispatch(new FilteredTasks(this.todoAction.FilterUpcoming));
   }
 
-  canceleFilter(): void {
+  cancelFilter(): void {
     this.store.dispatch(new FilteredTasks(null));
   }
 }

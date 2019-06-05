@@ -6,7 +6,7 @@ let tasksData = [
 
 const getNewId = function () {
   return Math.random().toString(36).substr(2, 9);
-}
+};
 
 function formatDate() {
   const dataNew = new Date();
@@ -36,26 +36,26 @@ module.exports.getTasks = function (req, res) {
     pages: Math.ceil(tasks.length / req.query.count),
     tasks: tasks.splice((req.query.from - 1) * req.query.count, req.query.count)
   });
-}
+};
 
 module.exports.addTasks = function (req, res) {
   req.body.id = getNewId();
   tasksData.push(req.body);
   res.status(200).json(req.body.id)
-}
+};
 
 module.exports.editTask = function (req, res) {
   tasksData.splice([tasksData.findIndex(item => item.id === req.body.id)], 1, req.body);
   res.status(200).json({ message: true });
-}
+};
 
 module.exports.deleteTask = function (req, res) {
   tasksData.splice([tasksData.findIndex(item => item.id === req.query.id)], 1);
   res.status(200).json({ message: true });
-}
+};
 
 module.exports.changeTaskStatus = function (req, res) {
   let task = tasksData.find(item => item.id === req.body.id);
   task.isComplete = !task.isComplete;
   res.status(200).json({ message: true });
-}
+};
