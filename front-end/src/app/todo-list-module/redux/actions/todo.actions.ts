@@ -12,7 +12,8 @@ export enum TodoActionTypes {
     FilterOverdue = 'filterOverdue',
     FilterUpcoming = 'filterUpcoming',
     ShowAll = 'showall',
-    GET_TASKS = 'GET_TASKS'
+    GET_TASKS = 'GET_TASKS',
+    FilteredTasks = 'Filtered'
 }
 
 export class AddTask implements Action {
@@ -65,6 +66,12 @@ export class ShowAllTasks implements Action {
     readonly type = TodoActionTypes.ShowAll;
 }
 
+export class FilteredTasks implements Action {
+    readonly type = TodoActionTypes.FilteredTasks;
+
+    constructor(public filterStatus: string){}
+}
+
 export class GetTasks implements Action {
     readonly type = TodoActionTypes.GET_TASKS;
 
@@ -81,4 +88,5 @@ export type TodoActionInterface = AddTask |
                                   ShowOverdueTasks |
                                   ShowUpcomingTasks |
                                   ShowAllTasks |
+                                  FilteredTasks |
                                   GetTasks;

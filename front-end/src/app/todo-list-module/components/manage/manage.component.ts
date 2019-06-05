@@ -11,7 +11,8 @@ import {
   ShowUpcomingTasks,
   ShowAllTasks,
   EditTask,
-  AddTask
+  AddTask,
+  FilteredTasks
 } from '../../redux/actions/todo.actions';
 import { TODO_SELECT } from '../../constants/constants';
 import { Subject } from 'rxjs';
@@ -57,25 +58,23 @@ export class ManageComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
   }
 
-
-
   applyCompletedFilter(): void {
-    this.store.dispatch(new ShowCompletedTasks);
+    this.store.dispatch(new FilteredTasks(this.todoAction.FilterCompleted));
   }
 
   applyOverdueFilter(): void {
-    this.store.dispatch(new ShowOverdueTasks);
+    this.store.dispatch(new FilteredTasks(this.todoAction.FilterOverdue));
   }
 
   applyUncompletedFilter(): void {
-    this.store.dispatch(new ShowUncompletedTasks);
+    this.store.dispatch(new FilteredTasks(this.todoAction.FilterUncompleted));
   }
 
   applyUpcomingFilter(): void {
-    this.store.dispatch(new ShowUpcomingTasks);
+    this.store.dispatch(new FilteredTasks(this.todoAction.FilterUpcoming));
   }
 
   canceleFilter(): void {
-    this.store.dispatch(new ShowAllTasks);
+    this.store.dispatch(new FilteredTasks(null));
   }
 }

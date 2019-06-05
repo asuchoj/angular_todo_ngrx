@@ -13,23 +13,9 @@ export function todoReducer(state = initialTodoState, action: TodoActionInterfac
                 return { ...state, editTask: action.body, tasks: [...state._tasks]}
             }
         }
-        case (TodoActionTypes.Edit): {
-            return { ...state, editTask: null}
-        }
-        case (TodoActionTypes.FilterCompleted): {
-            return {...state, filter: action.type}
-        }
-        case (TodoActionTypes.FilterUncompleted): {
-            return {...state, filter: action.type}
-        }
-        case (TodoActionTypes.FilterOverdue): {
-            return {...state, filter: action.type}
-        }
-        case (TodoActionTypes.FilterUpcoming): {
-            return {...state, filter: action.type}
-        }
-        case (TodoActionTypes.ShowAll): {
-            return {...state, filter: null}
+        case (TodoActionTypes.FilteredTasks): {
+            console.log(action.filterStatus);
+            return { ...state, filter: action.filterStatus}
         }
         case TodoActionTypes.GET_TASKS: {
             return {...state, tasks: [...action.tasks], _tasks: [...action.tasks], pages: action.pages};            
