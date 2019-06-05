@@ -1,6 +1,6 @@
 import { TodoActionTypes, TodoActionInterface } from './todo-list.actions';
 import { initialTodoState } from './todo-list.state'
-import { formatDate } from '../utility/utility';
+import { formatDate } from '../../utility/utility';
 
 export function todoListReducer(state = initialTodoState, action: TodoActionInterface) {
     switch (action.type) {
@@ -24,27 +24,12 @@ export function todoListReducer(state = initialTodoState, action: TodoActionInte
         }
         case (TodoActionTypes.Completed): {
             const task = state._tasks.find(i => i.id === action.taskId);
+            console.log(task);
             task.isComplete = !task.isComplete;
 
             return {...state, tasks: [...state._tasks]}
         }
-        case TodoActionTypes.FilterCompleted: {
-            return {...state, tasks: state._tasks.filter(item => item.isComplete)}
-        }
-        case TodoActionTypes.FilterUncompleted: {
-            return {...state, tasks: state._tasks.filter(item => !item.isComplete)}
-        }
-        case TodoActionTypes.FilterOverdue: {
-            const date = formatDate();         
-            return {...state, tasks: state._tasks.filter(item => item.date < date)}
-        }
-        case TodoActionTypes.FilterUpcoming: {
-            const date = formatDate();      
-            return {...state, tasks: state._tasks.filter(item => item.date >= date)}
-        }
-        case TodoActionTypes.ShowAll: {
-            return {...state, tasks: [...state._tasks]}
-        }
+
         case TodoActionTypes.GET_TASKS: {
             return {...state, tasks: [...action.tasks], _tasks: [...action.tasks], pages: action.pages};            
         }

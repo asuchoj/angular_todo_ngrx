@@ -1,4 +1,4 @@
-import { TodoInitialState } from "../interfaces/interface";
+import { TodoInitialState } from "../../interfaces/interface";
 
 let start: any[] = []
 

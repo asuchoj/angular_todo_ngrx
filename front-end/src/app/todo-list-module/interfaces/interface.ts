@@ -15,12 +15,22 @@ export interface TodoPage {
     todoPage: {
         _tasks: Task[],
         tasks: Task[],
+        pages: number,
         editTask?: Task,
-        pages: number
+        filter?: string
+    },
+    pagination: {
+        page: number,
+        count: number
     }
 }
 
-export interface paginationTasks{
+export interface paginationTasks {
     pages: number,
     tasks: Task[]
+}
+
+export interface Pagination {
+    page: number,
+    count: number
 }

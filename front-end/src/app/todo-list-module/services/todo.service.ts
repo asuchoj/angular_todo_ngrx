@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators'
 
 import { TodoPage, paginationTasks } from '../interfaces/interface'
-import { GetTasks, AddTask, RemoveTask, CompletedTask} from '../redux/todo-list.actions';
+import { GetTasks, AddTask, RemoveTask, CompletedTask} from '../redux/tasks/todo-list.actions';
 import { Observable } from 'rxjs';
 import { Task } from '../interfaces/interface';
 
@@ -21,12 +21,17 @@ export class TodoService {
 
   constructor(private http: HttpClient, private store: Store<TodoPage>) { }
 
-  getTasks(from: number, count: number): Observable<paginationTasks> {
+  reFetchTasks(from: number = 1, count: number = 5, filterParam?: string){
     return this.http.get<paginationTasks>(this.URl, {
       params: new HttpParams()
         .set('from', from + '')
         .set('count', count + '')
-    }).pipe(
+        .set('filterParam', filterParam)
+    })
+  }
+
+  getTasks(from: number, count: number): Observable<paginationTasks> {
+    return this.reFetchTasks(from, count).pipe(
       tap(tasks => this.store.dispatch(new GetTasks(tasks.tasks, tasks.pages)))
     )
   }
@@ -48,7 +53,7 @@ export class TodoService {
 
   deleteTask(id: string): Observable<any> {
     return this.http.delete<any>(this.URl, {params: new HttpParams().set('id', id)}).pipe(
-      tap(tasks => this.store.dispatch(new RemoveTask(id)))
+      tap(() => this.store.dispatch(new RemoveTask(id)))
     )
   }
 

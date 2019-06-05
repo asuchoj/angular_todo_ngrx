@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Task, TodoPage } from '../../interfaces/interface'
-import { EditTask } from '../../redux/todo-list.actions';
+import { EditTask } from '../../redux/tasks/todo-list.actions';
 import { TodoService } from '../../services/todo.service';
 
 @Component({

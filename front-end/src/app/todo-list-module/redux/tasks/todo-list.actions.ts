@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Task } from '../interfaces/interface'
+import { Task } from '../../interfaces/interface'
 
 export enum TodoActionTypes {
     Add = 'add',

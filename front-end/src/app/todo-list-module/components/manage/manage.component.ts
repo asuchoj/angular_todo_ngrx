@@ -10,7 +10,7 @@ import {
   ShowOverdueTasks,
   ShowUpcomingTasks,
   ShowAllTasks
-} from '../../redux/todo-list.actions';
+} from '../../redux/tasks/todo-list.actions';
 import { TodoService } from '../../services/todo.service';
 
 @Component({

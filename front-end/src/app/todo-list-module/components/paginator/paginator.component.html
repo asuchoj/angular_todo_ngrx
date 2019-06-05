@@ -1,11 +1,11 @@
 <div class="paginator">
-  <div class="paginator-btn-wrap">
-    <span *ngFor="let item of pages; let i = index" class="paginator-btn">{{i + 1}}</span>
-  </div>
+  <ul class="paginator-btn-wrap">
+    <li *ngFor="let item of pages; let i = index" class="paginator-btn" [ngClass]="{'active': page === i + 1}" (click)="setPage(i + 1)">{{i + 1}}</li>
+  </ul>
 
-  <select>
-    <option value="5">5</option>
-    <option value="10">10</option>
-    <option value="15">15</option>
+  <select [formControl]="curentCount" (change)="setCount()">
+    <option>5</option>
+    <option>10</option>
+    <option>15</option>
   </select>
 </div>
