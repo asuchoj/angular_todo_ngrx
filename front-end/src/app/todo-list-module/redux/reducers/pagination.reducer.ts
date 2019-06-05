@@ -1,7 +1,7 @@
-import { PaginationActionInterface, PaginationActionTypes } from './pagination.actions';
-import { PaginationState } from './pagination';
+import { PaginationActionInterface, PaginationActionTypes } from '../actions/pagination.actions';
+import { paginationState } from '../states/pagination.state';
 
-export function paginationReducer(state = PaginationState, action: PaginationActionInterface) {
+export function paginationReducer(state = paginationState, action: PaginationActionInterface) {
     switch (action.type) {
         case (PaginationActionTypes.ChangePages): {
             return {page: action.page, count: action.count}

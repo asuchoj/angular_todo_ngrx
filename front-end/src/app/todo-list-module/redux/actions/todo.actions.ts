@@ -4,6 +4,7 @@ import { Task } from '../../interfaces/interface'
 export enum TodoActionTypes {
     Add = 'add',
     Remove = 'remove',
+    BeginEdit = 'beginEdit',
     Edit = 'edit',
     Completed = 'completed',
     FilterCompleted = 'filterCompleted',
@@ -28,6 +29,12 @@ export class RemoveTask implements Action {
 
 export class EditTask implements Action {
     readonly type = TodoActionTypes.Edit;
+
+    constructor(public body: Task) { }
+}
+
+export class BeginEditTask implements Action {
+    readonly type = TodoActionTypes.BeginEdit;
 
     constructor(public body: Task) { }
 }
@@ -67,6 +74,7 @@ export class GetTasks implements Action {
 export type TodoActionInterface = AddTask |
                                   RemoveTask |
                                   EditTask |
+                                  BeginEditTask |
                                   CompletedTask |
                                   ShowCompletedTasks |
                                   ShowUncompletedTasks |

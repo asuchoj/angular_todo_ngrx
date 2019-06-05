@@ -1,39 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { TodoService } from './services/todo.service'
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { TodoPage, paginationTasks, Pagination } from './interfaces/interface';
-import { switchMap, mergeMap, map, tap, first, last } from 'rxjs/operators';
-import { GetTasks } from './redux/tasks/todo-list.actions';
+
+import { Subject } from 'rxjs';
+import { tap, takeUntil } from 'rxjs/operators';
+
+import { TodoService } from './services/todo.service'
+import { TodoPage, TodoState, PaginationState } from './interfaces/interface';
+import { GetTasks } from './redux/actions/todo.actions';
+import { PAGINATION_SELECT, TODO_SELECT } from './constants/constants';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit {
-  tasks: paginationTasks;
-  pagination: Pagination;
+export class TodoListComponent implements OnInit, OnDestroy {
 
-  page: number = this.store.source['value'].pagination.page;
-  count: number = this.store.source['value'].pagination.count;
+  todoState: TodoState;
 
-  constructor(
-    private store: Store<TodoPage>, private todoServise: TodoService) { }
+  paginationState: PaginationState;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(private store: Store<TodoPage>, private todoServise: TodoService) { }
 
   ngOnInit() {
-    this.todoServise.getTasks(this.page, this.count).pipe(
-      tap(() => console.log('start')),
-      tap(paginationTasks => this.store.dispatch(new GetTasks(paginationTasks.tasks, paginationTasks.pages)))
-    ).subscribe()
+    let page: number = this.store.source['value'].pagination.page;
+    let count: number = this.store.source['value'].pagination.count;
 
-    this.store.select('pagination').subscribe(pagination => {
-      this.pagination = pagination;
-      console.log('pagination')
-    });
+    this.todoServise.getTasks(page, count).pipe(
+      tap(state => this.store.dispatch(new GetTasks(state.tasks, state.pages)),
+      takeUntil(this.destroy$)
+    )).subscribe()
 
-    this.store.select('todoPage').subscribe(pagination => {
-      this.tasks = pagination;
-      console.log('todoPage')
-    });
+    this.store.select(PAGINATION_SELECT).pipe(takeUntil(this.destroy$)).subscribe(state => this.paginationState = state);
+
+    this.store.select(TODO_SELECT).pipe(takeUntil(this.destroy$)).subscribe(state => this.todoState = state);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
   }
 }

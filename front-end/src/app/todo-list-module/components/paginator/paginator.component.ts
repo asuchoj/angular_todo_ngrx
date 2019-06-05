@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 
 import { TodoPage } from '../../interfaces/interface';
-import { ChangePages } from '../../redux/pagination/pagination.actions';
-import { FormControl } from '@angular/forms';
+import { ChangePages } from '../../redux/actions/pagination.actions';
 
 @Component({
   selector: 'app-paginator',

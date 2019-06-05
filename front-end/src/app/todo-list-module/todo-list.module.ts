@@ -14,16 +14,17 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ManageComponent } from './components/manage/manage.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 
-import { todoListReducer } from './redux/tasks/todo-list.reducer';
-import { TaskEffect } from './redux/effects.effects';
-import { paginationReducer } from './redux/pagination/pagination.reducer';
+import { todoReducer } from './redux/reducers/todo.reducer';
+import { paginationReducer } from './redux/reducers/pagination.reducer';
+import { TaskEffect as TodoEffect } from './redux/effects/todo.effects';
+import { FilterEffect } from './redux/effects/filter.effect';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ todoPage: todoListReducer, pagination: paginationReducer}),
-    EffectsModule.forRoot([TaskEffect]),
+    StoreModule.forRoot({ todo: todoReducer, pagination: paginationReducer }),
+    EffectsModule.forRoot([TodoEffect, FilterEffect]),
     HttpClientModule
   ],
   exports: [

@@ -1,4 +1,4 @@
-<div class="paginator">
+<div class="paginator" *ngIf="pages.length">
   <ul class="paginator-btn-wrap">
     <li *ngFor="let item of pages; let i = index" class="paginator-btn" [ngClass]="{'active': page === i + 1}" (click)="setPage(i + 1)">{{i + 1}}</li>
   </ul>

@@ -3,8 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Task, TodoPage } from '../../interfaces/interface'
-import { EditTask } from '../../redux/tasks/todo-list.actions';
-import { TodoService } from '../../services/todo.service';
+import { CompletedTask, RemoveTask, BeginEditTask } from '../../redux/actions/todo.actions';
 
 @Component({
   selector: 'app-task',
@@ -14,17 +13,17 @@ import { TodoService } from '../../services/todo.service';
 export class TaskComponent {
   @Input() task: Task;
 
-  constructor(private store: Store<TodoPage>, private todoService: TodoService) { }
+  constructor(private store: Store<TodoPage>) { }
 
   editTask(){
-    this.store.dispatch(new EditTask(this.task))
+    this.store.dispatch(new BeginEditTask(this.task))
   }
 
   deleteTask(){
-    this.todoService.deleteTask(this.task.id).subscribe();
+    this.store.dispatch(new RemoveTask(this.task.id))
   }
 
   completedTask(){
-    this.todoService.changeStatus(this.task.id).subscribe();
+    this.store.dispatch(new CompletedTask(this.task.id))
   }
 }
