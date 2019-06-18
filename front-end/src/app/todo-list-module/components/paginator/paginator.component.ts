@@ -20,7 +20,7 @@ export class PaginatorComponent implements OnChanges {
 
   currentCount = new FormControl('');
 
-  constructor(private store: Store<TodoPage>) {}
+  constructor(private store: Store<TodoPage>) { }
 
   ngOnChanges(): void {
     this.pages = new Array(this.countPages);

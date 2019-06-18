@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Store} from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Store } from '@ngrx/store';
 
-import {TodoPage, TodoState} from '../interfaces/interface';
-import {Observable} from 'rxjs';
-import {Task} from '../interfaces/interface';
-import {mergeMap} from 'rxjs/operators';
+import { TodoPage, TodoState } from '../interfaces/interface';
+import { Observable } from 'rxjs';
+import { Task } from '../interfaces/interface';
+import { mergeMap } from 'rxjs/operators';
 
-import {PaginationActionTypes} from '../redux/actions/pagination.actions';
-import {TodoActionTypes, GetTasks} from '../redux/actions/todo.actions';
+import { PaginationActionTypes } from '../redux/actions/pagination.actions';
+import { TodoActionTypes, GetTasks } from '../redux/actions/todo.actions';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class TodoService {
 
   private URl = 'http://localhost:5000/api/tasks';
@@ -44,18 +44,18 @@ export class TodoService {
   }
 
   deleteTask(id: string): Observable<any> {
-    return this.http.delete<any>(this.URl, {params: new HttpParams().set('id', id)});
+    return this.http.delete<any>(this.URl, { params: new HttpParams().set('id', id) });
   }
 
   changeStatus(id: string): Observable<any> {
-    return this.http.patch<any>(this.URl, {id: id});
+    return this.http.patch<any>(this.URl, { id: id });
   }
 
   filteredTasks(filter?: string): Observable<any> {
     return this.reFetchTasks(1, this.store.source['value'].pagination.count, filter).pipe(
       mergeMap((state: TodoState) => {
         return [
-          {type: this.pagination.ResetPage},
+          { type: this.pagination.ResetPage },
           {
             type: this.todoActionsType.GET_TASKS,
             tasks: state.tasks,

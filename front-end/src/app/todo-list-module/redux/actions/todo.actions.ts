@@ -69,24 +69,24 @@ export class ShowAllTasks implements Action {
 export class FilteredTasks implements Action {
     readonly type = TodoActionTypes.FilteredTasks;
 
-    constructor(public filterStatus: string) {}
+    constructor(public filterStatus: string) { }
 }
 
 export class GetTasks implements Action {
     readonly type = TodoActionTypes.GET_TASKS;
 
-    constructor(public tasks: Task[], public pages: number) {}
+    constructor(public tasks: Task[], public pages: number) { }
 }
 
 export type TodoActionInterface = AddTask |
-                                  RemoveTask |
-                                  EditTask |
-                                  BeginEditTask |
-                                  CompletedTask |
-                                  ShowCompletedTasks |
-                                  ShowUncompletedTasks |
-                                  ShowOverdueTasks |
-                                  ShowUpcomingTasks |
-                                  ShowAllTasks |
-                                  FilteredTasks |
-                                  GetTasks;
+    RemoveTask |
+    EditTask |
+    BeginEditTask |
+    CompletedTask |
+    ShowCompletedTasks |
+    ShowUncompletedTasks |
+    ShowOverdueTasks |
+    ShowUpcomingTasks |
+    ShowAllTasks |
+    FilteredTasks |
+    GetTasks;

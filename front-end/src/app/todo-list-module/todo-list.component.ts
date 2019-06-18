@@ -30,8 +30,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
     this.todoService.getTasks(page, count).pipe(
       tap(state => this.store.dispatch(new GetTasks(state.tasks, state.pages)),
-      takeUntil(this.destroy$)
-    )).subscribe();
+        takeUntil(this.destroy$)
+      )).subscribe();
 
     this.store.select(PAGINATION_SELECT).pipe(takeUntil(this.destroy$)).subscribe(state => this.paginationState = state);
 

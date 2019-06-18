@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { TodoPage } from '../../interfaces/interface';
-import { TodoActionTypes, EditTask, AddTask, FilteredTasks} from '../../redux/actions/todo.actions';
+import { TodoActionTypes, EditTask, AddTask, FilteredTasks } from '../../redux/actions/todo.actions';
 import { TODO_SELECT } from '../../constants/constants';
 
 @Component({

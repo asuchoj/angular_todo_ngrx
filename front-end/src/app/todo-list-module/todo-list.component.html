@@ -9,9 +9,7 @@
     <div class="body" *ngIf="todoState">
       <app-manage></app-manage>
 
-      <app-paginator [countPages]="todoState.pages"
-                     [page]="paginationState.page"
-                     [count]="paginationState.count"></app-paginator>
+      <app-paginator [countPages]="todoState.pages" [page]="paginationState.page" [count]="paginationState.count"></app-paginator>
 
       <ng-container *ngFor="let task of todoState.tasks">
         <app-task [task]="task"></app-task>

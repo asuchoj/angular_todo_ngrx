@@ -1,4 +1,4 @@
-import {TodoState} from "../../interfaces/interface";
+import { TodoState } from "../../interfaces/interface";
 
 const start: any[] = [];
 
