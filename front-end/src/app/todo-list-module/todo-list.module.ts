@@ -1,4 +1,3 @@
-import * as component from './components';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,12 +13,10 @@ import { todoReducer } from './redux/reducers/todo.reducer';
 import { paginationReducer } from './redux/reducers/pagination.reducer';
 import { TaskEffect as TodoEffect } from './redux/effects/todo.effects';
 import { FilterEffect } from './redux/effects/filter.effect';
+import { toArray } from './utils/utils';
+import * as component from './components';
 
-function toArrayC(obj){
-  return Object.keys(obj).map(k => obj[k]);
-}
-
-const declarations = [...toArrayC(component)];
+const declarations = [...toArray(component)];
 
 @NgModule({
   imports: [
